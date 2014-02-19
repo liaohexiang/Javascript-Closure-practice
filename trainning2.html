@@ -1,0 +1,43 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function applyf(binary){
+			return function (x){
+				return function (y){
+					return binary(x,y);
+				};
+			};
+		}
+		function curry(z, x){
+			return function(y){
+				return z(x,y);
+			}
+		}
+		var inc = curry(add,1);
+		log(inc(5));
+		</script>
+	</pre>
+</body>
+</html>

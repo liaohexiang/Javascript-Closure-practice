@@ -1,0 +1,109 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function fromTo(x,y){
+			return function(){
+				if (x<y){
+					var z=x;
+					x+=1;
+					return z;
+				}
+				else{
+					return undefined;
+				}
+			};
+		}
+log("-------------------------------------");
+	
+		function addgf(){
+			var x=0;
+			return function more(y){
+				if(y===undefined){
+					if(x>0){
+						return x;
+					}else{
+						return undefined;
+					}
+				}
+				else{
+					x +=y;
+					return more;
+				}
+			};
+		}
+		var addg = addgf();
+		log(addg());
+		log(addg(2)(5)());
+		
+	function applyg(f){
+		var x=1;
+		return function more(y){
+				if(y===undefined){
+					if(x>1){
+						return x;
+					}else{
+						return undefined;
+					}
+				}
+				else{
+					x = f(x,y);
+					return more;
+				}
+		};
+	}
+	log(applyg(mul)());
+	log(applyg(mul)(3)());
+	log(applyg(mul)(3)(10)());
+	
+	function arrayg(){
+		var arr = [];
+		return function more(y){
+		if(y === undefined){
+			return arr;
+			}else{
+				arr.push(y);
+				return more;
+			}
+		}
+	}
+	var a = arrayg()(3)();
+	log(a.length);
+	a = arrayg()(3)(4)();
+	log(a.length);
+	
+	function unaryc(f){
+		return function(f1, value){
+			return f1(f(value));
+		};
+	}
+	
+	var f = unaryc(Math.sqrt);
+	f(log, 81);
+	
+	
+	</script>
+	</pre>
+</body>
+</html>

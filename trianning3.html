@@ -1,0 +1,36 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function twice(x){
+			return function(y){
+				return x(y,y);
+			};
+		}
+		var tw = twice(add);
+		log(tw(5));
+		</script>
+	</pre>
+</body>
+</html>

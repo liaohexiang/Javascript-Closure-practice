@@ -1,0 +1,145 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function twice(x){
+			return function(y){
+				return x(y,y);
+			};
+		}
+		var tw = twice(add);
+		log(tw(5));
+		var sq = twice(mul);
+		log(sq(5));
+		
+		function switcheroo(x){
+			return function(p,q){
+				return x(q,p)
+			}
+		}
+		var sw = switcheroo(sub);
+		log(sw(3,2))
+		
+		function composeu(d,s){
+			return function(x){
+				return s(d(x));
+			};
+		}
+		var com = composeu(tw,sq);
+		log(com(3));
+		
+		function composeb(a,m){
+			return function(x,y,z){
+				return m(a(x,y),z);
+			};
+		}
+		var comb = composeb(add, mul);
+		log(comb(2,3,5));
+		
+		function once(d){
+			var t=true;
+			return function(x,y){
+				if(t){
+					t=false;
+					return d(x,y);
+				}
+				else{
+					return undefined;
+				}
+			};
+		}
+		var add_once = once(add);
+		log(add_once(3,4));
+		log(add_once(4,5));
+		
+		function fromTo(x,y){
+			return function(){
+				if (x<y){
+					var z=x;
+					x+=1;
+					return z;
+				}
+				else{
+					return undefined;
+				}
+			};
+		}
+		var index = fromTo(0,3);
+		log(index());
+		log(index());
+		log(index());
+		log(index());
+		log(index());
+		
+		function element(arr, index){
+			return function(){
+			  var x = index();
+				if(x){
+					return arr[x];
+				}
+			};
+		}
+		var val =element(['a','b','c','d'], fromTo(1,3))
+		log(val());
+		log(val());
+		log(val());
+		log(val());
+		
+		function collect(x, y){
+			return function (){
+				var z = x();
+				y[z]=z;
+				return z;
+			};
+		}
+		var arr = [];
+		var col= collect(fromTo(1,3),arr);
+		log(col());
+		log(col());
+		log(col());
+		log(col());
+		
+		function third(value){
+			return (value%3) === 0;
+		}		
+		function filter(index, third){
+			return function(){
+				var i = index();
+				var v = third(i);
+				while(v === false){
+					i = index();
+					v = third(i);
+				}
+				return i;
+			};
+		}
+		
+		var fil = filter(fromTo(0,5), third);
+		log(fil());
+		log(fil());
+		log(fil());
+		</script>
+	</pre>
+</body>
+</html>

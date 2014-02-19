@@ -1,0 +1,62 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		log(x);
+		}
+		function add(a, b){
+		var x = a+b;
+		log(x);
+		}
+		function mul(a, b){
+		var x=a*b;
+		log(x);
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function indentityf(x){
+			return function(){
+				return x;
+			};
+		}
+		var idif3 = indentityf(3);
+		
+		log(idif3());
+		
+		function func1(x){
+			return function(y){
+				return x+y;
+			};
+		}
+		var func = func1(3);
+		log(func(4));
+		//---------------------------
+		function applyf(binary){
+			return function (x){
+				return function (y){
+					return binary(x,y);
+				};
+			};
+		}
+		//--------------------------
+		
+		function curry(func1, x){
+			return function(y){
+				func1(x,y);
+			};
+		}
+		var add3= curry(add, 3);
+		log(add3(4));
+		</script>
+	</pre>
+</body>
+</html>

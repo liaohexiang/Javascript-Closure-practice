@@ -1,0 +1,204 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function fromTo(x,y){
+			return function(){
+				if (x<y){
+					var z=x;
+					x+=1;
+					return z;
+				}
+				else{
+					return undefined;
+				}
+			};
+		}
+		function concat(f1, f2){
+			var if1=1;
+			var if2=1;
+			return function(){
+				if(if1===if2){
+					if1+=1;
+					return f1();
+				}else{
+					if2+=1;
+					return f2();
+				}
+			};
+		}
+		var con = concat(fromTo(1,3),fromTo(0,2));
+		log(con());
+		log(con());
+		log(con());
+		log(con());
+		log(con());
+		log(con());
+		
+		function revocable(log){
+			return {
+				invoke: function(x){
+				  if(log !== undefined)
+					return x;
+				},
+				revoke: function(){
+					log = undefined;
+				},
+			};
+		}
+		
+		var temp = revocable(log);
+		var invoke = temp.invoke;
+		log(invoke(4));
+		temp.revoke();
+		log(invoke(10));
+		
+		function gensymf(x){
+			var t=1;
+			return function(){
+				y = x+t;
+				t+=1;
+				return y;
+			}
+		}
+		var gG = gensymf("G");
+		var gH = gensymf("H");
+		log(gG());
+		log(gH());
+		log(gG());
+		log(gH());
+		log(gG());
+		log(gH());
+		log("-----------------------------------------------");
+		function gensymff(q,p){
+			return function(z){
+				var t=1;
+				return function(){
+					y = z+t;
+					t+=1;
+					return y;
+				}
+			}
+		}
+		var gensymf = gensymff();
+		var gensymg = gensymf("G");
+		var gensymh = gensymf("H");
+		log(gensymg());
+		log(gensymh());
+		log(gensymg());
+		log(gensymh());
+		log(gensymg());
+		log(gensymh());
+		
+		log("-----------------------------------------------------------------");
+		function fib(i,j){
+			var lastIndex = 0;
+			var arr = [];
+			arr[0] = i;
+			arr[1] = j;
+			return function(){
+				if(lastIndex ===0 || lastIndex ===1){
+					var t = arr[lastIndex];
+					lastIndex +=1;
+					return t;
+				}
+				else {
+					arr[lastIndex] = arr[lastIndex-1]+arr[lastIndex-2];
+					var t = arr[lastIndex];
+					lastIndex +=1;
+					return t;
+				}
+			};
+		}
+		var f = fib(0, 1);
+		log(f());
+		log(f());
+		log(f());
+		log(f());
+		log(f());
+		log(f());
+		log(f());
+		
+		function m (value, source){
+			return {
+				value: value,
+				source: source||String(value),
+			};
+		}
+		
+		function addm(x, y){
+			return {
+				value: x.value+y.value,
+				source: "("+x.value+"+"+y.value+")"
+			
+			}
+		}
+		var json = JSON.stringify(addm(m(3), m(4)));
+		log(json);
+		
+		function applym(f, symbol){
+			return function (x, y){
+				  return {
+					value: f(x.value,y.value),
+					source: "("+x.value+symbol+y.value+")"
+				  };
+				};
+		}
+		var addm =applym(add, "+");
+		var json = JSON.stringify(addm(m(3), m(4)));
+		log(json);
+		
+		
+		function applym(f, symbol){
+			return function (x, y){
+				 var xV;
+				 var yV;
+				 if(typeof x === "number"){
+					xV = x;
+				 }else if(typeof x ==="string")
+					xV = Number(x)
+				 }else{
+					xV = x.value;
+				 }
+				  if(typeof y === "number"){
+					yV = y;
+				 }else if(typeof y ==="string")
+					yV = Number(y)
+				 }else{
+					yV = y.value;
+				 }
+				  return {
+					value: f(xV,yV),
+					source: "("+xV+symbol+yV+")"
+				  };
+				};
+		}
+		var addm =applym(add, "+");
+		var json = JSON.stringify(addm(m(3), m(4)));
+		log(json);
+		
+		</script>
+	</pre>
+</body>
+</html>

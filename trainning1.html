@@ -1,0 +1,36 @@
+<html>
+<body>
+	<pre>
+		<script>
+		function log (arg){
+			document.writeln(arg);
+		}
+		log("welcome to the fun function world!");
+		
+		function sub(a, b){
+		var x = a-b;
+		return x;
+		}
+		function add(a, b){
+		var x = a+b;
+		return x;
+		}
+		function mul(a, b){
+		var x=a*b;
+		return x;
+		}
+		sub(3,4);
+		add(3,4);
+		mul(3,4);
+		
+		function curry(z, x){
+			return function some(y){
+				return z(x,y);
+			}
+		}
+		var adding = curry(add,3);
+		log(adding(4));
+		</script>
+	</pre>
+</body>
+</html>
